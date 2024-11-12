@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Moon and Sun Effect</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            transition: background-color 1s ease, color 1s ease;
+            position: relative;
+        }
+
+        .cursor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: yellow;
+            pointer-events: none;
+            transition: background-color 1s ease, box-shadow 0.5s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .signature {
+            position: fixed;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            pointer-events: none;
+            transition: color 1s ease;
+        }
+
+        /* Sabit pozisyon sağda */
+        .signature-right {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Sabit pozisyon solda */
+        .signature-left {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Yıldızlar */
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: star 2s infinite ease-out;
+        }
+
+        @keyframes star {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="signature signature-right">Arda Mol</div> <!-- Sağda sabit -->
+    <!-- Alternatif olarak solda sabit imza için aşağıdaki kodu kullanabilirsiniz -->
+    <!-- <div class="signature signature-left">Arda Mol</div> -->
+
+    <script>
+        // Yıldızları ekleyen fonksiyon
+        function createStars() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            document.body.appendChild(star);
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const size = Math.random() * 2 + 1; // Yıldız büyüklüğü
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+        }
+
+        setInterval(createStars, 100); // Aralıklı olarak yıldızlar ekle
+
+        // Imleç hareketini dinleyen event
+        document.addEventListener('mousemove', function(e) {
+            const width = window.innerWidth;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Cursor position update
+            const cursor = document.querySelector('.cursor');
+            cursor.style.left = `${mouseX}px`;
+            cursor.style.top = `${mouseY}px`;
+
+            // Signature position update
+            const signature = document.querySelector('.signature');
+            signature.style.left = `${mouseX + 60}px`; // Signature will be to the right of the cursor
+            signature.style.top = `${mouseY}px`;
+
+            // Background color transition (to white as we go to the right)
+            const backgroundBrightness = Math.round((mouseX / width) * 255);
+            document.body.style.backgroundColor = `rgb(${backgroundBrightness}, ${backgroundBrightness}, ${backgroundBrightness})`;
+
+            // Cursor color transition: from yellow to grey as we go from right to left
+            const cursorColorValue = Math.round((mouseX / width) * 255); // Right = more yellow, Left = more grey
+            cursor.style.backgroundColor = `rgb(${cursorColorValue}, ${cursorColorValue}, 0)`; // Yellow to Grey
+
+            // Cursor box shadow transition
+            cursor.style.boxShadow = `0 0 15px 5px rgba(${cursorColorValue}, ${cursorColorValue}, 0, 0.5)`; // Sarı etki
+
+            // Signature text color transition (same as cursor)
+            signature.style.color = `rgb(${cursorColorValue}, ${cursorColorValue}, 0)`; // Yellow to Grey
+
+            // Parallax effect for background
+            const xOffset = (window.innerWidth - mouseX) * 0.05;
+            const yOffset = (window.innerHeight - mouseY) * 0.05;
+            document.body.style.backgroundPosition = `${xOffset}px ${yOffset}px`;
+        });
+
+        // Mobil uyumluluk için, mouse yerine dokunmatik ekran desteği
+        document.addEventListener('touchmove', function(e) {
+            const width = window.innerWidth;
+            const mouseX = e.touches[0].clientX;
+            const mouseY = e.touches[0].clientY;
+
+            // Cursor position update
+            const cursor = document.querySelector('.cursor');
+            cursor.style.left = `${mouseX}px`;
+            cursor.style.top = `${mouseY}px`;
+
+            // Signature position update
+            const signature = document.querySelector('.signature');
+            signature.style.left = `${mouseX + 60}px`; // Signature will be to the right of the cursor
+            signature.style.top = `${mouseY}px`;
+
+            // Background color transition
+            const backgroundBrightness = Math.round((mouseX / width) * 255);
+            document.body.style.backgroundColor = `rgb(${backgroundBrightness}, ${backgroundBrightness}, ${backgroundBrightness})`;
+
+            // Cursor color transition
+            const cursorColorValue = Math.round((mouseX / width) * 255);
+            cursor.style.backgroundColor = `rgb(${cursorColorValue}, ${cursorColorValue}, 0)`; // Yellow to Grey
+
+            // Cursor box shadow transition
+            cursor.style.boxShadow = `0 0 15px 5px rgba(${cursorColorValue}, ${cursorColorValue}, 0, 0.5)`; // Sarı etki
+
+            // Signature text color transition
+            signature.style.color = `rgb(${cursorColorValue}, ${cursorColorValue}, 0)`; // Yellow to Grey
+
+            // Parallax effect for background
+            const xOffset = (window.innerWidth - mouseX) * 0.05;
+            const yOffset = (window.innerHeight - mouseY) * 0.05;
+            document.body.style.backgroundPosition = `${xOffset}px ${yOffset}px`;
+        });
+    </script>
+</body>
+</html>
