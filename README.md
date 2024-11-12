@@ -55,7 +55,7 @@ HTML
 CSS (custom styles and transitions)
 JavaScript (for mouse movement and interactive features)
 
-###Contributing
+### Contributing
 To contribute to this project, please submit a pull request in the GitHub repository. We welcome any kind of contribution!
 
 ### License
