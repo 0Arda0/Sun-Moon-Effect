@@ -40,23 +40,25 @@ Yazılımın kullanılması, kopyalanması, değiştirilmesi, birleştirilmesi, 
 
 This project provides an interactive background effect based on mouse movement. As the user moves the mouse across the screen, the background color changes, the cursor transitions from yellow to gray, and the screen brightness and cursor color change inversely. Additionally, stars and a parallax effect are added to enrich the visuals.
 
-Features
+### Features
 Background Color Change: As the mouse moves to the right, the background changes to white, and as it moves to the left, it transitions to black.
 Cursor Color Change: The cursor turns yellow as the mouse moves right, and gray as it moves left.
 Parallax Effect: The background shifts based on the mouse movement.
 Stars: Randomly appearing stars and twinkling effects at various points on the screen.
 Mobile Compatibility: The same interactive effect works on touch screen devices.
-Usage
+
+### Usage
 To run this project on your local machine, simply open the HTML file in a browser.
 To view it live via GitHub Pages, enable GitHub Pages in the GitHub repository settings.
 Technologies
 HTML
 CSS (custom styles and transitions)
 JavaScript (for mouse movement and interactive features)
-Contributing
+
+###Contributing
 To contribute to this project, please submit a pull request in the GitHub repository. We welcome any kind of contribution!
 
-License
+### License
 This project is licensed under the MIT License.
 
 MIT License (MIT)
